@@ -1,15 +1,14 @@
-name: Bug Report
-description: 报告规则、模板、skill、示例、CI 或协作配置中的明确问题
-title: "[Bug] "
+name: Prompt Regression
+description: 报告 AGENTS / agent 规则、skill 或示例导致的行为回归
+title: "[Regression] "
 labels:
-  - bug
+  - regression
 body:
   - type: input
     id: platform
     attributes:
       label: 芯片 / 平台
-      description: 例如 STM32F407VET6、ESP32-S3、GD32F303
-      placeholder: 平台准确型号
+      placeholder: 例如 STM32F407VET6
     validations:
       required: true
   - type: dropdown
@@ -25,6 +24,17 @@ body:
         - PlatformIO
         - ESP-IDF
         - 其他
+    validations:
+      required: true
+  - type: dropdown
+    id: runner
+    attributes:
+      label: 运行环境
+      options:
+        - Codex
+        - ChatGPT
+        - Claude
+        - 其他兼容运行器
     validations:
       required: true
   - type: dropdown
@@ -50,43 +60,37 @@ body:
         - label: 有引脚分配表
         - label: 有官方参考手册 / 数据手册
         - label: 有官方 SDK / HAL / BSP
-        - label: 有官方例程
         - label: 有现有代码基线
   - type: textarea
-    id: summary
+    id: prompt_source
     attributes:
-      label: 问题概述
-      description: 用几句话说明哪里出了问题
-      placeholder: 例如 AGENTS.md 与示例输出在阶段进入条件上不一致
+      label: 使用的入口或文件
+      description: 例如 AGENTS.md、agent/system.md、某个 skill
     validations:
       required: true
   - type: textarea
     id: expected_behavior
     attributes:
       label: 预期行为
-      description: 按仓库规则，你预期应该发生什么
+      description: 之前或按规则应该如何表现
     validations:
       required: true
   - type: textarea
     id: actual_behavior
     attributes:
       label: 实际行为
-      description: 当前实际发生了什么
+      description: 回归后具体哪里变了
     validations:
       required: true
   - type: textarea
     id: reproduction
     attributes:
       label: 复现步骤
-      description: 尽量给最小复现路径
-      placeholder: |
-        1. 使用 AGENTS.md 作为入口
-        2. 提供某组输入
-        3. 得到与预期不一致的输出
+      description: 尽量提供最小输入和最小输出对比
     validations:
       required: true
   - type: textarea
-    id: logs
+    id: attachments
     attributes:
       label: 附件 / 日志 / 链接
-      description: 可贴日志、截图、PR、提交、示例链接
+      description: 可贴对话片段、截图、提交范围、示例链接

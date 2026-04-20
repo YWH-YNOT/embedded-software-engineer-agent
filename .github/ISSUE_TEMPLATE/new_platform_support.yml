@@ -1,5 +1,5 @@
 name: New Platform Support
-description: 提议新增某个 MCU / SoC 平台的规则补充或示例
+description: 提议新增某个 MCU / SoC 平台的示例、skill 或规则补充
 title: "[Platform] "
 labels:
   - platform
@@ -7,41 +7,67 @@ body:
   - type: input
     id: platform_name
     attributes:
-      label: 平台名称
-      description: 例如 STM32H7 / GD32F4 / ESP32-S3
-      placeholder: 平台名称
+      label: 芯片 / 平台
+      placeholder: 例如 STM32H743 / ESP32-S3 / GD32F450
+    validations:
+      required: true
+  - type: dropdown
+    id: toolchain
+    attributes:
+      label: 主要工具链
+      options:
+        - GCC
+        - CMake + GCC
+        - Keil
+        - IAR
+        - PlatformIO
+        - ESP-IDF
+        - 其他
+    validations:
+      required: true
+  - type: checkboxes
+    id: docs_available
+    attributes:
+      label: 当前已具备的资料
+      options:
+        - label: 有原理图
+        - label: 有引脚分配表
+        - label: 有官方参考手册 / 数据手册
+        - label: 有官方 SDK / HAL / BSP
+        - label: 有官方例程
+        - label: 有真实硬件
     validations:
       required: true
   - type: textarea
-    id: official_docs
+    id: docs_links
     attributes:
-      label: 官方资料
-      description: 请列出参考手册、数据手册、SDK/HAL、官方例程来源
-      placeholder: 需要至少给出官方资料路径或链接
+      label: 官方资料来源
+      description: 请列出参考手册、数据手册、SDK/HAL、例程来源
     validations:
       required: true
   - type: textarea
     id: scope
     attributes:
       label: 计划支持的范围
-      description: 说明你希望覆盖哪些模块和场景
-      placeholder: 例如：UART / I2C / SPI / ADC，裸机或轻量 RTOS
+      description: 请明确希望覆盖哪些模块和哪些场景
     validations:
       required: true
   - type: textarea
-    id: hardware
+    id: nongoals
     attributes:
-      label: 硬件前提
-      description: 说明板级资料、原理图、引脚表、测试条件是否具备
+      label: 非目标范围
+      description: 请说明暂时不打算覆盖什么
     validations:
       required: true
-  - type: textarea
-    id: risks
-    attributes:
-      label: 已知风险或边界
-      description: 说明为什么这个平台需要单独补充，以及有哪些不打算覆盖的内容
   - type: textarea
     id: validation
     attributes:
       label: 验证方式
       description: 说明准备如何验证新增平台支持是可执行的
+    validations:
+      required: true
+  - type: textarea
+    id: attachments
+    attributes:
+      label: 附件 / 链接
+      description: 可附板卡资料、代码仓库、日志、图片

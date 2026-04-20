@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 使用问题与设计讨论
+    url: https://github.com/YWH-YNOT/embedded-software-engineer-agent/discussions
+    about: 使用上的疑问、设计取舍、路线建议请优先发到 Discussions。
+  - name: 提问前先看这里
+    url: https://github.com/YWH-YNOT/embedded-software-engineer-agent/blob/main/docs/how_to_ask.md
+    about: 先按提问指南准备资料，再提问会更容易得到可执行回复。
+  - name: 安全问题
+    url: https://github.com/YWH-YNOT/embedded-software-engineer-agent/security/policy
+    about: 涉及凭据、敏感信息或安全配置的问题，请不要公开提交 Issue。

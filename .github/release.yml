@@ -1,0 +1,29 @@
+changelog:
+  exclude:
+    labels:
+      - skip-changelog
+  categories:
+    - title: Runtime Entry
+      labels:
+        - runtime
+        - agent
+    - title: Skills
+      labels:
+        - skill
+    - title: Templates
+      labels:
+        - template
+    - title: Examples
+      labels:
+        - example
+    - title: Platform Support
+      labels:
+        - platform
+    - title: CI And Collaboration
+      labels:
+        - ci
+        - docs
+        - governance
+    - title: Bug Fixes
+      labels:
+        - bug

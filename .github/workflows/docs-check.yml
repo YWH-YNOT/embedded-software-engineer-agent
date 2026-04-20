@@ -1,0 +1,128 @@
+name: Docs Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  docs-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate docs, structure, and local links
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+
+          $requiredFiles = @(
+            'AGENTS.md',
+            'README.md',
+            'LICENSE',
+            'CODE_OF_CONDUCT.md',
+            'SECURITY.md',
+            'CHANGELOG.md',
+            'CONTRIBUTING.md',
+            'agent/system.md',
+            'agent/workflow.md',
+            'agent/rules.md',
+            'agent/questioning.md',
+            'agent/output_contract.md',
+            'templates/project_intake.md',
+            'templates/hardware_intake.md',
+            'templates/module_plan.md',
+            'templates/module_debug_checklist.md',
+            'templates/integration_report.md',
+            'docs/github_settings_checklist.md',
+            'docs/release_policy.md',
+            'docs/roadmap.md',
+            'docs/discussions_seed_topics.md',
+            'docs/how_to_ask.md',
+            '.github/CODEOWNERS',
+            '.github/release.yml',
+            '.github/workflows/docs-check.yml'
+          )
+
+          foreach ($file in $requiredFiles) {
+            if (-not (Test-Path $file)) {
+              throw "Missing required file: $file"
+            }
+          }
+
+          $requiredSkillDirs = @(
+            '.agents/skills/project-intake',
+            '.agents/skills/uart-bringup',
+            '.agents/skills/i2c-bringup',
+            '.agents/skills/spi-bringup',
+            '.agents/skills/module-debug-checklist'
+          )
+
+          foreach ($dir in $requiredSkillDirs) {
+            if (-not (Test-Path (Join-Path $dir 'SKILL.md'))) {
+              throw "Missing skill entry: $dir/SKILL.md"
+            }
+          }
+
+          $requiredExampleDirs = @(
+            'examples/stm32_uart_minimal',
+            'examples/stm32_i2c_sensor',
+            'examples/stm32_spi_memory',
+            'examples/multi_module_integration',
+            'examples/insufficient_info_case'
+          )
+
+          foreach ($dir in $requiredExampleDirs) {
+            foreach ($name in @('input.md', 'expected_output.md', 'notes.md')) {
+              if (-not (Test-Path (Join-Path $dir $name))) {
+                throw "Missing example file: $dir/$name"
+              }
+            }
+          }
+
+          $mdFiles = Get-ChildItem -Recurse -Filter *.md | Where-Object { $_.FullName -notmatch '[\\/]\.git[\\/]' }
+          foreach ($file in $mdFiles) {
+            $content = Get-Content -Raw -Encoding utf8 $file.FullName
+            if ([string]::IsNullOrWhiteSpace($content)) {
+              throw "Empty markdown file: $($file.FullName)"
+            }
+
+            $lines = $content -split "`r?`n"
+            $firstNonEmpty = $lines | Where-Object { $_.Trim() -ne '' } | Select-Object -First 1
+            if (-not $firstNonEmpty.StartsWith('#')) {
+              throw "Markdown file should start with a heading: $($file.FullName)"
+            }
+
+            $matches = [regex]::Matches($content, '\[[^\]]+\]\((?<target>[^)]+)\)')
+            foreach ($match in $matches) {
+              $target = $match.Groups['target'].Value.Trim()
+              if (-not $target) { continue }
+              if ($target.StartsWith('http://') -or $target.StartsWith('https://') -or $target.StartsWith('mailto:') -or $target.StartsWith('#')) {
+                continue
+              }
+
+              if ($target.StartsWith('<') -and $target.EndsWith('>')) {
+                $target = $target.Substring(1, $target.Length - 2)
+              }
+
+              $pathOnly = $target.Split('#')[0]
+              if (-not $pathOnly) { continue }
+
+              if ($pathOnly.StartsWith('/')) {
+                $resolved = Join-Path $PWD $pathOnly.TrimStart('/','\')
+              } else {
+                $resolved = Join-Path $file.DirectoryName $pathOnly
+              }
+
+              if (-not (Test-Path $resolved)) {
+                throw "Broken local link in $($file.FullName): $target"
+              }
+            }
+          }
+
+          Write-Host 'Docs check passed.'

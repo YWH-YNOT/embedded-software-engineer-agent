@@ -1,37 +1,82 @@
 name: Feature Request
-description: 提议新增规则、模板、示例或仓库协作能力
+description: 提议新增或增强规则、模板、示例、skill、协作流程
 title: "[Feature] "
 labels:
   - enhancement
 body:
+  - type: input
+    id: platform
+    attributes:
+      label: 芯片 / 平台
+      description: 如果需求与特定平台相关，请写准确型号；否则填通用
+      placeholder: 例如 STM32F4 / 通用
+    validations:
+      required: true
+  - type: dropdown
+    id: toolchain
+    attributes:
+      label: 相关工具链
+      options:
+        - GCC
+        - CMake + GCC
+        - Keil
+        - IAR
+        - PlatformIO
+        - ESP-IDF
+        - 通用
+        - 其他
+    validations:
+      required: true
+  - type: dropdown
+    id: current_phase
+    attributes:
+      label: 主要影响的工作阶段
+      options:
+        - Phase 0 资料审查
+        - Phase 1 关键追问
+        - Phase 2 模块拆解
+        - Phase 3 单模块开发
+        - Phase 4 单模块验证
+        - Phase 5 系统集成
+        - Phase 6 回归测试与收尾
+        - 仓库协作基础设施
+    validations:
+      required: true
+  - type: checkboxes
+    id: docs_available
+    attributes:
+      label: 与该需求相关的资料前提
+      options:
+        - label: 有原理图
+        - label: 有官方手册
+        - label: 有官方 SDK / HAL / BSP
+        - label: 有现有代码基线
+        - label: 有真实硬件可验证
   - type: textarea
     id: problem
     attributes:
       label: 当前缺口
-      description: 先说明当前仓库缺了什么，为什么现有内容不够
+      description: 说明现有仓库哪里不够，为什么不能只靠现有内容解决
     validations:
       required: true
   - type: textarea
     id: proposal
     attributes:
       label: 建议方案
-      description: 请描述你建议新增或修改的内容
+      description: 请写你建议新增或修改什么
     validations:
       required: true
   - type: textarea
-    id: workflow
-    attributes:
-      label: 影响的工作流
-      description: 说明它会影响哪个阶段，如何保持“阶段控制、验证闭环、官方优先”
-    validations:
-      required: true
-  - type: textarea
-    id: scope
+    id: boundaries
     attributes:
       label: 适用范围与非目标
-      description: 说明该功能适用于什么场景，不适用于什么场景
+      description: 请说明什么场景适用，什么场景不适用
+    validations:
+      required: true
   - type: textarea
-    id: examples
+    id: validation
     attributes:
-      label: 示例
-      description: 如果可能，请给出一个实际工程场景
+      label: 验收方式
+      description: 怎么判断这个功能真的有价值、没破坏现有规则
+    validations:
+      required: true

@@ -1,0 +1,10 @@
+# Replace the owners below if repository ownership changes.
+# Keep this file under review protection together with AGENTS.md and .github/**.
+
+* @YWH-YNOT
+/AGENTS.md @YWH-YNOT
+/.agents/skills/** @YWH-YNOT
+/examples/** @YWH-YNOT
+/docs/** @YWH-YNOT
+/.github/** @YWH-YNOT
+/.github/CODEOWNERS @YWH-YNOT

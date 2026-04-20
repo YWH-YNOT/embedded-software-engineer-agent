@@ -1,0 +1,88 @@
+name: New Skill Pack
+description: 提议新增 skill 或 skill pack
+title: "[Skill] "
+labels:
+  - skill
+body:
+  - type: input
+    id: skill_name
+    attributes:
+      label: skill 名称
+      placeholder: 例如 adc-bringup / dma-channel-debug
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: 芯片 / 平台
+      description: 如果是通用 skill，请填通用
+      placeholder: 通用 / STM32F4 / ESP32-S3
+    validations:
+      required: true
+  - type: dropdown
+    id: toolchain
+    attributes:
+      label: 相关工具链
+      options:
+        - GCC
+        - CMake + GCC
+        - Keil
+        - IAR
+        - PlatformIO
+        - ESP-IDF
+        - 通用
+        - 其他
+    validations:
+      required: true
+  - type: checkboxes
+    id: docs_available
+    attributes:
+      label: 当前已具备的资料
+      options:
+        - label: 有原理图
+        - label: 有官方手册
+        - label: 有官方 SDK / HAL / BSP
+        - label: 有官方例程
+        - label: 有真实硬件
+  - type: textarea
+    id: trigger
+    attributes:
+      label: 触发场景
+      description: 什么情况下应该触发这个 skill
+    validations:
+      required: true
+  - type: textarea
+    id: no_trigger
+    attributes:
+      label: 不应触发的场景
+      description: 什么情况下不该用这个 skill
+    validations:
+      required: true
+  - type: textarea
+    id: inputs
+    attributes:
+      label: 所需输入
+      description: 该 skill 至少需要哪些资料
+    validations:
+      required: true
+  - type: textarea
+    id: outputs
+    attributes:
+      label: 输出要求
+      description: 你希望这个 skill 产出什么
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 验收方式
+      description: 怎么判断 skill 已经完成并且有价值
+    validations:
+      required: true
+  - type: textarea
+    id: overlap
+    attributes:
+      label: 与现有 skill 的关系
+      description: 是否与现有 skill 重叠，为什么不能直接扩展现有文件
+    validations:
+      required: true
