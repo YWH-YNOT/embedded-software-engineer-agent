@@ -1,5 +1,9 @@
 # embedded-software-engineer-agent
 
+[![Release](https://img.shields.io/github/v/release/YWH-YNOT/embedded-software-engineer-agent)](https://github.com/YWH-YNOT/embedded-software-engineer-agent/releases)
+[![License](https://img.shields.io/github/license/YWH-YNOT/embedded-software-engineer-agent)](LICENSE)
+![Docs](https://img.shields.io/badge/docs-zh--CN-0A7EA4)
+
 一个面向 Codex / ChatGPT / Claude 的嵌入式软件工程师 Agent 规则仓库。
 
 这个项目不是“让 AI 一次性吐出完整工程”的代码生成器，而是一套受控、可审查、可复用的工作规则。它要求 AI 先审资料、先追问关键缺失信息、按模块推进开发、逐模块验证，最后才进入系统集成与回归测试。
