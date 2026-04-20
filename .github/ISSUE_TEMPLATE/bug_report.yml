@@ -1,0 +1,47 @@
+name: Bug Report
+description: 报告规则、模板、示例或协作文件中的问题
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: 问题概述
+      description: 简要说明哪里有问题
+      placeholder: 例如：README 中的目录结构与实际文件不一致
+    validations:
+      required: true
+  - type: textarea
+    id: location
+    attributes:
+      label: 影响位置
+      description: 请列出具体文件、章节或模板项
+      placeholder: 例如：agent/system.md 第 3 节
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望行为
+      description: 你认为这里应该如何表述或工作
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际问题
+      description: 当前内容为什么会导致误解、冲突或不可执行
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现方式
+      description: 如果问题与使用流程有关，请描述如何复现
+      placeholder: 例如：按照 README 快速开始执行后，示例与 output contract 不一致
+  - type: textarea
+    id: references
+    attributes:
+      label: 参考信息
+      description: 可附上相关文档、截图、链接或建议修改方向

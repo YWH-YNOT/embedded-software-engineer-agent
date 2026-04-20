@@ -1,0 +1,47 @@
+name: New Platform Support
+description: 提议新增某个 MCU / SoC 平台的规则补充或示例
+title: "[Platform] "
+labels:
+  - platform
+body:
+  - type: input
+    id: platform_name
+    attributes:
+      label: 平台名称
+      description: 例如 STM32H7 / GD32F4 / ESP32-S3
+      placeholder: 平台名称
+    validations:
+      required: true
+  - type: textarea
+    id: official_docs
+    attributes:
+      label: 官方资料
+      description: 请列出参考手册、数据手册、SDK/HAL、官方例程来源
+      placeholder: 需要至少给出官方资料路径或链接
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: 计划支持的范围
+      description: 说明你希望覆盖哪些模块和场景
+      placeholder: 例如：UART / I2C / SPI / ADC，裸机或轻量 RTOS
+    validations:
+      required: true
+  - type: textarea
+    id: hardware
+    attributes:
+      label: 硬件前提
+      description: 说明板级资料、原理图、引脚表、测试条件是否具备
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: 已知风险或边界
+      description: 说明为什么这个平台需要单独补充，以及有哪些不打算覆盖的内容
+  - type: textarea
+    id: validation
+    attributes:
+      label: 验证方式
+      description: 说明准备如何验证新增平台支持是可执行的
