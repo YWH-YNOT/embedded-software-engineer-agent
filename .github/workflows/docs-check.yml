@@ -29,6 +29,7 @@ jobs:
             'SECURITY.md',
             'CHANGELOG.md',
             'CONTRIBUTING.md',
+            '.agents/README.md',
             'agent/system.md',
             'agent/workflow.md',
             'agent/rules.md',
@@ -40,10 +41,12 @@ jobs:
             'templates/module_debug_checklist.md',
             'templates/integration_report.md',
             'docs/github_settings_checklist.md',
+            'docs/skill_pack_contract.md',
             'docs/release_policy.md',
             'docs/roadmap.md',
             'docs/discussions_seed_topics.md',
             'docs/how_to_ask.md',
+            'examples/README.md',
             '.github/CODEOWNERS',
             '.github/release.yml',
             '.github/workflows/docs-check.yml'
@@ -81,6 +84,44 @@ jobs:
             foreach ($name in @('input.md', 'expected_output.md', 'notes.md')) {
               if (-not (Test-Path (Join-Path $dir $name))) {
                 throw "Missing example file: $dir/$name"
+              }
+            }
+          }
+
+          $requiredSectionMap = @{
+            'AGENTS.md' = @('## 角色', '## 强制工作流', '## 硬规则', '## 输出结构', '## 禁止事项')
+            'README.md' = @('## 先看这里', '## 项目是什么', '## 推荐使用流程', '## 仓库结构', '## 支持范围', '## 非目标范围')
+            '.agents/README.md' = @('## 目录职责', '## skill 最低契约', '## 与其他目录的分工')
+            'docs/skill_pack_contract.md' = @('## 1. 目录契约', '## 2. 命名契约', '## 3. 内容契约', '## 4. 行为契约')
+            'examples/README.md' = @('## 如何使用', '## 示例索引', '## 选哪个示例')
+          }
+
+          foreach ($entry in $requiredSectionMap.GetEnumerator()) {
+            $content = Get-Content -Raw -Encoding utf8 $entry.Key
+            foreach ($section in $entry.Value) {
+              if ($content -notmatch [regex]::Escape($section)) {
+                throw "Missing required section '$section' in $($entry.Key)"
+              }
+            }
+          }
+
+          $requiredSkillSections = @(
+            '## skill 名称',
+            '## skill 描述',
+            '## 触发场景',
+            '## 不应触发的场景',
+            '## 所需输入',
+            '## 输出要求',
+            '## 边界与风险',
+            '## 验收方式'
+          )
+
+          $skillFiles = Get-ChildItem .agents/skills -Recurse -Filter SKILL.md
+          foreach ($skill in $skillFiles) {
+            $skillContent = Get-Content -Raw -Encoding utf8 $skill.FullName
+            foreach ($section in $requiredSkillSections) {
+              if ($skillContent -notmatch [regex]::Escape($section)) {
+                throw "Missing required section '$section' in $($skill.FullName)"
               }
             }
           }

@@ -20,6 +20,8 @@
 - [`AGENTS.md`](AGENTS.md)：运行时入口，短、硬、直接约束 Agent 行为
 - [`agent/`](agent/)：展开版规则、工作流、追问机制、输出契约
 - [`.agents/skills/`](.agents/skills/)：可复用的技能工作流，面向具体任务
+- [`docs/skill_pack_contract.md`](docs/skill_pack_contract.md)：后续扩展 skill pack 的接口约束
+- [`examples/README.md`](examples/README.md)：示例总索引，按阶段选择入口
 
 ## 项目是什么
 
@@ -32,6 +34,7 @@
 - 结构化模板：`templates/`
 - 可触发技能：`.agents/skills/`
 - 场景示例：`examples/`
+- 扩展接口：`docs/skill_pack_contract.md`
 
 ## 解决什么问题
 
@@ -68,6 +71,7 @@
 3. 用 `templates/` 收集项目信息和模块计划。
 4. 用 `examples/` 对照输出结构，确认当前回复是否符合仓库规则。
 5. 对规则或示例有问题时，优先用 Issue / Discussion 反馈，而不是在 PR 中直接扩散新规则。
+6. 如果准备新增 skill，先看 [`docs/skill_pack_contract.md`](docs/skill_pack_contract.md) 再开工。
 
 ## 仓库结构
 
@@ -87,6 +91,7 @@ embedded-software-engineer-agent/
 │  ├─ questioning.md
 │  └─ output_contract.md
 ├─ .agents/
+│  ├─ README.md
 │  └─ skills/
 │     ├─ project-intake/
 │     ├─ uart-bringup/
@@ -95,7 +100,11 @@ embedded-software-engineer-agent/
 │     └─ module-debug-checklist/
 ├─ templates/
 ├─ examples/
+│  └─ README.md
 ├─ docs/
+│  ├─ skill_pack_contract.md
+│  ├─ release_policy.md
+│  └─ roadmap.md
 └─ .github/
    ├─ ISSUE_TEMPLATE/
    ├─ workflows/
@@ -124,6 +133,7 @@ embedded-software-engineer-agent/
 
 可直接对照的示例：
 
+- [`examples/README.md`](examples/README.md)
 - [`examples/stm32_uart_minimal/`](examples/stm32_uart_minimal/)
 - [`examples/stm32_i2c_sensor/`](examples/stm32_i2c_sensor/)
 - [`examples/stm32_spi_memory/`](examples/stm32_spi_memory/)
@@ -158,6 +168,7 @@ embedded-software-engineer-agent/
 - 安全问题：不要公开提 Issue，参见 [`SECURITY.md`](SECURITY.md)
 - 贡献规则：参见 [`CONTRIBUTING.md`](CONTRIBUTING.md)
 - 不能通过本地文件完成的 GitHub 设置：参见 [`docs/github_settings_checklist.md`](docs/github_settings_checklist.md)
+- 新增 skill 前的接口约束：参见 [`docs/skill_pack_contract.md`](docs/skill_pack_contract.md)
 
 如果你第一次打开这个仓库，建议按这个顺序阅读：
 

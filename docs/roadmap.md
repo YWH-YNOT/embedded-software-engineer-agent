@@ -25,6 +25,7 @@
 - [x] 增加 `CODEOWNERS`
 - [x] 增加版本策略与路线文档
 - [x] 增加 Discussions 草稿与提问指南
+- [x] 明确 skill pack 扩展接口与示例索引
 
 ## P2
 

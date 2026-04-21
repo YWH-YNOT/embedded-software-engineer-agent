@@ -8,6 +8,8 @@
 
 - 根目录运行时入口 `AGENTS.md`
 - `.agents/skills/` 技能目录与首批 5 个 skill
+- `.agents/README.md` 与 `docs/skill_pack_contract.md`，明确后续 skill pack 扩展接口
+- `examples/README.md`，提供示例索引和场景入口
 - 5 组面向外部用户的聚焦示例
 - 文档检查工作流 `docs-check.yml`
 - GitHub 手动设置清单、发布策略、路线图、提问指南、Discussions 草稿
